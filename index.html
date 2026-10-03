@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="MENZO — modern men's fashion, shirts, t-shirts, trousers, jeans and jackets.">
+<title>MENZO — Men's Fashion Store</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Arial,Helvetica,sans-serif;background:#f7f5f1;color:#171717}
+a{text-decoration:none;color:inherit}
+.container{width:min(1180px,92%);margin:auto}
+
+header{position:sticky;top:0;z-index:50;background:#111;color:#fff}
+.nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{font-size:1.65rem;font-weight:900;letter-spacing:.12em}
+.logo span{color:#d6a354}
+.navlinks{display:flex;gap:28px;font-size:.92rem}
+.navlinks a:hover{color:#d6a354}
+.menu{display:none;background:none;border:0;color:white;font-size:1.5rem}
+
+.hero{min-height:78vh;background:linear-gradient(100deg,#171717 0%,#29251f 55%,#4b3b28 100%);color:#fff;display:grid;align-items:center}
+.hero-content{padding:90px 0}
+.eyebrow{text-transform:uppercase;letter-spacing:.2em;color:#d6a354;font-size:.78rem;font-weight:700}
+.hero h1{font-size:clamp(3rem,8vw,6.8rem);line-height:.9;margin:18px 0;max-width:800px;letter-spacing:-.05em}
+.hero h1 span{color:#d6a354}
+.hero p{max-width:590px;color:#d0d0d0;font-size:1.05rem;line-height:1.7;margin-bottom:30px}
+.btn{display:inline-block;padding:14px 23px;border-radius:4px;font-weight:800;margin-right:8px;transition:.2s}
+.btn-main{background:#d6a354;color:#111}
+.btn-main:hover{transform:translateY(-2px);background:#e3b56b}
+.btn-light{border:1px solid #777;color:#fff}
+.btn-light:hover{background:#fff;color:#111}
+
+section{padding:82px 0}
+.title{text-align:center;margin-bottom:42px}
+.title small{color:#b17b2e;text-transform:uppercase;letter-spacing:.18em;font-weight:800}
+.title h2{font-size:clamp(2rem,5vw,3.3rem);margin-top:9px}
+.title p{color:#777;max-width:620px;margin:12px auto}
+
+.categories{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.category{min-height:230px;background:#222;color:#fff;padding:25px;display:flex;align-items:end;position:relative;overflow:hidden}
+.category:nth-child(2){background:#303030}.category:nth-child(3){background:#3c3429}.category:nth-child(4){background:#242424}
+.category div{position:relative;z-index:2}
+.category h3{font-size:1.5rem;margin-bottom:5px}
+.category p{color:#ccc;font-size:.9rem}
+
+.products{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.product{background:#fff;border:1px solid #e7e2da;border-radius:8px;overflow:hidden}
+.product-img{height:270px;background:linear-gradient(145deg,#ddd,#aaa);display:grid;place-items:center;font-size:3rem}
+.product:nth-child(2) .product-img{background:linear-gradient(145deg,#e8e2d7,#bcae99)}
+.product:nth-child(3) .product-img{background:linear-gradient(145deg,#c9c9c9,#777)}
+.product:nth-child(4) .product-img{background:linear-gradient(145deg,#343434,#111)}
+.product-info{padding:18px}
+.tag{font-size:.7rem;color:#a56f27;text-transform:uppercase;font-weight:800;letter-spacing:.1em}
+.product h3{margin:7px 0;font-size:1rem}
+.price{font-weight:900;font-size:1.1rem}
+.product button{width:100%;border:0;background:#171717;color:#fff;padding:11px;margin-top:14px;border-radius:4px;cursor:pointer;font-weight:700}
+.product button:hover{background:#d6a354;color:#111}
+
+.about{display:grid;grid-template-columns:1fr 1fr;gap:55px;align-items:center}
+.about-box{background:#1a1a1a;color:#fff;min-height:400px;padding:50px;display:flex;flex-direction:column;justify-content:center}
+.about-box h2{font-size:clamp(2rem,5vw,3.5rem);line-height:1;margin:12px 0 20px}
+.about-box p{color:#c6c6c6;line-height:1.8}
+.points{display:grid;gap:20px}
+.point{display:flex;gap:15px}
+.point-icon{width:42px;height:42px;background:#ead5ad;color:#111;display:grid;place-items:center;border-radius:50%;font-weight:900;flex:none}
+.point h3{margin-bottom:4px}.point p{color:#777;font-size:.92rem}
+
+.contact{background:#111;color:#fff;text-align:center}
+.contact p{color:#aaa;margin:12px auto 25px;max-width:600px}
+.contact strong{color:#d6a354}
+
+footer{background:#080808;color:#777;padding:25px 0;font-size:.85rem}
+.footer{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+
+.cart{position:fixed;right:22px;bottom:22px;background:#d6a354;color:#111;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;font-weight:900;box-shadow:0 8px 25px #0004;z-index:60}
+.cart span{position:absolute;right:-2px;top:-5px;background:#fff;border:2px solid #111;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:.7rem}
+
+@media(max-width:850px){
+.navlinks{display:none;position:absolute;top:72px;left:0;right:0;background:#111;padding:20px;flex-direction:column}
+.navlinks.open{display:flex}.menu{display:block}
+.categories,.products{grid-template-columns:repeat(2,1fr)}
+.about{grid-template-columns:1fr}
+}
+@media(max-width:520px){
+.categories,.products{grid-template-columns:1fr}
+.hero-content{padding:70px 0}
+}
+</style>
+</head>
+
+<body>
+<header>
+<div class="container nav">
+<a class="logo" href="#home">MENZO</a>
+<nav class="navlinks" id="navlinks">
+<a href="#home">Home</a>
+<a href="#shop">Shop</a>
+<a href="#categories">Categories</a>
+<a href="#about">About</a>
+<a href="#contact">Contact</a>
+</nav>
+<button class="menu" id="menu">☰</button>
+</div>
+</header>
+
+<main>
+<section class="hero" id="home">
+<div class="container hero-content">
+<div class="eyebrow">Men's Fashion • New Collection</div>
+<h1>Dress <span>Sharp.</span><br>Live Bold.</h1>
+<p>Discover modern men's fashion made for everyday confidence — from premium shirts and t-shirts to jeans, trousers and jackets.</p>
+<a class="btn btn-main" href="#shop">Shop Collection</a>
+<a class="btn btn-light" href="#categories">Explore Styles</a>
+</div>
+</section>
+
+<section id="categories">
+<div class="container">
+<div class="title"><small>Shop by style</small><h2>Find your look</h2><p>Build your wardrobe with timeless essentials and modern streetwear.</p></div>
+<div class="categories">
+<div class="category"><div><h3>Shirts</h3><p>Smart & casual</p></div></div>
+<div class="category"><div><h3>T-Shirts</h3><p>Everyday comfort</p></div></div>
+<div class="category"><div><h3>Jeans</h3><p>Classic denim</p></div></div>
+<div class="category"><div><h3>Jackets</h3><p>Bold outerwear</p></div></div>
+</div>
+</div>
+</section>
+
+<section id="shop">
+<div class="container">
+<div class="title"><small>Featured collection</small><h2>New arrivals</h2><p>Some sample products for the first version of the store. Replace them with your real products and prices.</p></div>
+<div class="products">
+
+<article class="product">
+<div class="product-img">👔</div>
+<div class="product-info"><div class="tag">New</div><h3>Premium Casual Shirt</h3><div class="price">₹999</div><button onclick="addToCart()">Add to Cart</button></div>
+</article>
+
+<article class="product">
+<div class="product-img">👕</div>
+<div class="product-info"><div class="tag">Best Seller</div><h3>Oversized Cotton T-Shirt</h3><div class="price">₹599</div><button onclick="addToCart()">Add to Cart</button></div>
+</article>
+
+<article class="product">
+<div class="product-img">👖</div>
+<div class="product-info"><div class="tag">Classic</div><h3>Slim Fit Blue Jeans</h3><div class="price">₹1,299</div><button onclick="addToCart()">Add to Cart</button></div>
+</article>
+
+<article class="product">
+<div class="product-img">🧥</div>
+<div class="product-info"><div class="tag">Trending</div><h3>Classic Black Jacket</h3><div class="price">₹1,799</div><button onclick="addToCart()">Add to Cart</button></div>
+</article>
+
+</div>
+</div>
+</section>
+
+<section id="about">
+<div class="container about">
+<div class="about-box">
+<div class="eyebrow">Our story</div>
+<h2>Style that feels like you.</h2>
+<p>MENZO is a concept men's fashion store focused on clean designs, comfortable fits and everyday style.</p>
+</div>
+<div class="points">
+<div class="point"><div class="point-icon">✓</div><div><h3>Quality First</h3><p>Comfortable materials and carefully selected styles.</p></div></div>
+<div class="point"><div class="point-icon">✓</div><div><h3>Modern Fits</h3><p>Looks designed for college, work, weekends and special occasions.</p></div></div>
+<div class="point"><div class="point-icon">✓</div><div><h3>Easy Ordering</h3><p>Customers can browse products and contact the store to place an order.</p></div></div>
+</div>
+</div>
+</section>
+
+<section class="contact" id="contact">
+<div class="container">
+<div class="eyebrow">Get in touch</div>
+<h2>Ready to upgrade your wardrobe?</h2>
+<p>Replace this section with your real shop phone number, WhatsApp number, address and social media links.</p>
+<p><strong>WhatsApp:</strong> +91 XXXXX XXXXX &nbsp; | &nbsp; <strong>Email:</strong> hello@menzo.in</p>
+<a class="btn btn-main" href="https://wa.me/91XXXXXXXXXX" target="_blank">Order on WhatsApp</a>
+</div>
+</section>
+</main>
+
+<a class="cart" href="#shop" aria-label="Shopping cart">🛒<span id="cartCount">0</span></a>
+
+<footer>
+<div class="container footer">
+<div>© <span id="year"></span> MENZO Men's Fashion</div>
+<div>Designed for a modern men's clothing store</div>
+</div>
+</footer>
+
+<script>
+const menu=document.getElementById("menu");
+const nav=document.getElementById("navlinks");
+menu.addEventListener("click",()=>nav.classList.toggle("open"));
+document.querySelectorAll(".navlinks a").forEach(a=>a.addEventListener("click",()=>nav.classList.remove("open")));
+
+let count=0;
+function addToCart(){
+  count++;
+  document.getElementById("cartCount").textContent=count;
+  alert("Product added to cart! Cart functionality can be expanded next.");
+}
+document.getElementById("year").textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
